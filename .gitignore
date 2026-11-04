@@ -1,0 +1,4 @@
+.venv/
+Lab 6/__pycache__/
+Lab 6/.vscode/
+.pytest_cache/
