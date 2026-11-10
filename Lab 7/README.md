@@ -24,5 +24,6 @@ From the repository root, run:
 ```
 
 The tests use Hypothesis to generate text and `None` values for all three
-functions. Invalid inputs return safe defaults instead of raising exceptions,
-while valid inputs retain the original behavior.
+functions. Invalid inputs raise clear `ValueError` exceptions, while the
+interactive application reports the validation error and continues running.
+Valid inputs retain the original behavior.

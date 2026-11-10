@@ -1,10 +1,14 @@
+import pytest
 from hypothesis import given, strategies as st
 from salon_booking import parse_booking, duration_average, payable_bill
 
 
 @given(st.text() | st.none())
 def test_parse_booking_no_crash(s):
-    result = parse_booking(s)
+    try:
+        result = parse_booking(s)
+    except ValueError:
+        return
     assert isinstance(result, tuple)
     assert len(result) == 2
     assert isinstance(result[0], str)
@@ -13,13 +17,19 @@ def test_parse_booking_no_crash(s):
 
 @given(st.text() | st.none())
 def test_duration_average_no_crash(s):
-    result = duration_average(s)
+    try:
+        result = duration_average(s)
+    except ValueError:
+        return
     assert isinstance(result, int)
 
 
 @given(st.text() | st.none())
 def test_payable_bill_no_crash(s):
-    result = payable_bill(s)
+    try:
+        result = payable_bill(s)
+    except ValueError:
+        return
     assert isinstance(result, float)
 
 
@@ -36,6 +46,9 @@ def test_valid_bill_applies_tax_and_discount():
 
 
 def test_invalid_inputs_use_safe_defaults():
-    assert parse_booking("haircut") == ("", 0.0)
-    assert duration_average("") == 0
-    assert payable_bill("800") == 0.0
+    with pytest.raises(ValueError):
+        parse_booking("haircut")
+    with pytest.raises(ValueError):
+        duration_average("")
+    with pytest.raises(ValueError):
+        payable_bill("800")
