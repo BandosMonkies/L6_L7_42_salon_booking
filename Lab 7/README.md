@@ -14,3 +14,15 @@ A small Python module that parses salon bookings, averages service durations and
 | `test_salon_booking.py` | Starter test file |
 
 Refer to the lab handout for instructions.
+
+## Run the fuzz tests
+
+From the repository root, run:
+
+```bash
+.venv/bin/python -m pytest -q "Lab 7/test_salon_booking.py"
+```
+
+The tests use Hypothesis to generate text and `None` values for all three
+functions. Invalid inputs return safe defaults instead of raising exceptions,
+while valid inputs retain the original behavior.
